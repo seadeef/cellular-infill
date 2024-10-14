@@ -85,3 +85,28 @@ runCellularAutomaton[iterations_, x_, y_, z_] :=
 
 matrix3D = runCellularAutomaton[5, 10, 10, 10][[1]];
 visualize3DMatrix[matrix3D]
+
+
+newState3D[currentState_,shape_:Null,rule_:{22,{2,1},{1,1,1}}]:=Module[{},newState=CellularAutomaton[rule,currentState];newState[[1;;-1,1]]=newState[[1;;-1,-2]];
+newState[[1;;-1,-1]]=newState[[1;;-1,2]];
+newState[[1]]=newState[[-2]];
+newState[[-1]]=newState[[2]];
+newState[[1;;-1,1;;-1,1]]=newState[[1;;-1,1;;-1,-2]];
+newState[[1;;-1,1;;-1,-1]]=newState[[1;;-1,1;;-1,2]];
+If[MatchQ[shape,Null],newState,BitAnd[newState,shape]]
+]
+visualize3DMatrix[slices_]:=
+Module[{cubes,xLayers,yLayers,zLayers},{xMax,yMax,zMax,slicesMax}={Length[slices[[1]]],Length[slices[[1]][[1]]],Length[slices[[1]][[1,1]]],Length[slices]};
+Manipulate[Module[{slicedCubes},slicedCubes=Flatten[Table[If[slices[[s]][[i,j,k]]==1&&(i<=xLayers)&&(j<=yLayers)&&(k<=zLayers),Cuboid[{i-1,j-1,k-1}],Nothing],{i,1,xMax},{j,1,yMax},{k,1,zMax}]];
+Graphics3D[{Opacity[0.6],Blue,slicedCubes},Boxed->False,Axes->True,AxesOrigin->{0,0,0},AxesLabel->{"x","y","z"},PlotRange->{{0,xMax},{0,yMax},{0,zMax}}]],{{xLayers,xMax,"x Layers"},1,xMax,1,Appearance->"Labeled"},{{yLayers,yMax,"y Layers"},1,yMax,1,Appearance->"Labeled"},{{zLayers,zMax,"z Layers"},1,zMax,1,Appearance->"Labeled"},{{s,1,"Slice"},1,slicesMax,1,Appearance->"Labeled"},ControlPlacement->Top,Initialization:>{xLayers=xMax;yLayers=yMax;zLayers=zMax}]]
+
+(*example of adding shape boundary for the CA*)
+width=20;
+height=20;
+depth=20;
+radius=8;
+cylinderHeight=15;
+sphere=Table[If[Norm[{x-width/2,y-height/2,z-depth/2}]<=radius,1,0],{x,1,width},{y,1,depth},{z,1,height}];
+cylinder=Table[If[Norm[{x-width/2,y-height/2}]<=radius&&z<=cylinderHeight,1,0],{x,1,width},{y,1,depth},{z,1,height}];
+visualize3DMatrix[NestList[newState3D[#,sphere,{30,{2,1},{1,1,1}}]&,CenterArray[1,{20,20,20}],12]]
+visualize3DMatrix[NestList[newState3D[#,cylinder,{50,{2,1},{1,1,1}}]&,CenterArray[1,{20,20,20}],12]]
