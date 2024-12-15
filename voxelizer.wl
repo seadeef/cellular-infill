@@ -1,40 +1,29 @@
 (* ::Package:: *)
 
 voxelize[model_, resolution_] := Module[
-    {reg, bounds, dx, dy, dz, meshReg},
+    {bounds, dx, dy, dz, xRange, yRange, zRange},
     
-    (* Convert model to region if it isn't already *)
-    meshReg = Switch[Head[model],
-        Graphics3D, BoundaryDiscretizeGraphics[model],
-        BoundaryMeshRegion, model,
-        MeshRegion, model,
-        (* For example data like the bunny *)
-        List, BoundaryDiscretizeGraphics[Graphics3D[model]],
-        _, If[RegionQ[model], model, 
-            Message["Unsupported model format"]; Return[$Failed]]
-    ];
+    bounds = RegionBounds[model];
     
-    (* Get bounds *)
-    bounds = RegionBounds[meshReg];
+    {dx, dy, dz} = (bounds[[All, 2]])/resolution;
     
-    (* Calculate step sizes *)
-    {dx, dy, dz} = (bounds[[All, 2]] - bounds[[All, 1]])/resolution;
+    xRange = Range[bounds[[1, 1]], bounds[[1, 2]], dx];
+    yRange = Range[bounds[[2, 1]], bounds[[2, 2]], dy];
+    zRange = Range[bounds[[3, 1]], bounds[[3, 2]], dz];
     
-    (* Create voxel matrix *)
     Table[
-        If[RegionMember[meshReg, {x, y, z}], 1, 0],
-        {x, bounds[[1, 1]], bounds[[1, 2]], dx},
-        {y, bounds[[2, 1]], bounds[[2, 2]], dy},
-        {z, bounds[[3, 1]], bounds[[3, 2]], dz}
+        If[RegionMember[model, {x, y, z}], 1, 0],
+        {x, xRange},
+        {y, yRange},
+        {z, zRange}
     ]
 ]
 
 
-tetraModel = Tetrahedron[1];
+tetraModel = BoundaryMeshRegion[Tetrahedron[1]];
 tetraVoxels = voxelize[tetraModel, 20];
-ArrayPlot3D[tetraVoxels]
-
-
-sphereModel = Ball[{{-1, -1, -1}}, 1];
-sphereVoxels = voxelize[sphereModel, 20];
-ArrayPlot3D[sphereVoxels]
+ArrayPlot3D[tetraVoxels, 
+ AspectRatio -> Automatic,
+ Boxed -> True,
+ Axes -> True,
+ PlotRange -> All]
