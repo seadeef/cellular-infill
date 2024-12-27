@@ -14,15 +14,16 @@ Rule describes how the CA will evolve (see Wolfram docs) \
 
 Begin["`Private`"]
 
-Options[visualize3DMatrix] = {"Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {14, {2, 1}, {1, 1, 1}}};
+Options[visualize3DMatrix] = {"Infill"->-1, "Connectivity"->-1, "Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {14, {2, 1}, {1, 1, 1}}, "Resolution"->0, "Mesh"->Octahedron[]};
 
 visualize3DMatrix[n_, OptionsPattern[]] := 
  Module[{xMax, yMax, zMax, bitmask, slices, displaySlices},
   
  bitmask = Switch[OptionValue["Shape"],
-    "Prism", ConstantArray[1, OptionValue["Bounds"]],
-    "Sphere", Module[{r=OptionValue["Radius"]}, Table[If[Norm[{x, y, z}]<=r,1,0],{x,-r,r},{y,-r,r},{z,-r,r}]],
-    "Cylinder", Module[{r=OptionValue["Radius"], h=OptionValue["Height"]}, Table[If[Norm[{x, y}]<=r,1,0],{x,-r,r},{y,-r,r},{z,0,h}]]
+    "Prism", prismBitmask[OptionValue["Bounds"]],
+    "Sphere", sphereBitmask[OptionValue["Radius"]],
+    "Cylinder", cylinderBitmask[OptionValue["Radius"], OptionValue["Height"]],
+    "Custom", voxelizer[OptionValue["Mesh"], OptionValue["Resolution"]]
   ];
 
   {xMax, yMax, zMax} = Dimensions[bitmask];

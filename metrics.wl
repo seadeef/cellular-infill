@@ -15,9 +15,11 @@ Optimize::usage = "Optimize[rulesMax, statesMax] searches rulesMax many rules fo
 to find candidates within Infill[[2]] range of Infill[[1]] and above the Connectivity threshold. \
 Has the same options as visualize3DMatrix for describing the rule and shape";
 
+ConnectedParts::usage = "ConnectedParts[slice] gives the matrix with all isolated parts removed"
+
 Begin["`Private`"]
 
-Options[Optimize] = {"Infill"->-1, "Connectivity"->-1, "Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {14, {2, 1}, {1, 1, 1}}};
+Options[Optimize] = {"Infill"->-1, "Connectivity"->-1, "Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {14, {2, 1}, {1, 1, 1}}, "Resolution"->0, "Mesh"->Octahedron[]};
 
 InfillPercentage[slice_, shape_] := 
     N[Divide[Count[Flatten[slice], 1], Count[Flatten[shape], 1]]]
@@ -67,6 +69,8 @@ IsolatedParts[slice_] :=
         ]
     ]]
 
+ConnectedParts[slice_] := MapThread[If[#2== 1, 0, #1] &, {slice, IsolatedParts[slice]}, 3]
+
 Connectivity[slice_] := 
     If[AllTrue[Flatten[slice], # === 0 &], 0,
     Module[{length = Length[slice],
@@ -87,26 +91,40 @@ Connectivity[slice_] :=
         ]
     ]]
 
+
+
 Optimize[rulesMax_, statesMax_, OptionsPattern[]] := 
   Module[{bitmask, rule=OptionValue["Rule"], infill=OptionValue["Infill"], connectivity=OptionValue["Connectivity"]},
 
   bitmask = Switch[OptionValue["Shape"],
-    "Prism", ConstantArray[1, OptionValue["Bounds"]],
-    "Sphere", Module[{r=OptionValue["Radius"]}, Table[If[Norm[{x, y, z}]<=r,1,0],{x,-r,r},{y,-r,r},{z,-r,r}]],
-    "Cylinder", Module[{r=OptionValue["Radius"], h=OptionValue["Height"]}, Table[If[Norm[{x, y}]<=r,1,0],{x,-r,r},{y,-r,r},{z,0,h}]]
+    "Prism", prismBitmask[OptionValue["Bounds"]],
+    "Sphere", sphereBitmask[OptionValue["Radius"]],
+    "Cylinder", cylinderBitmask[OptionValue["Radius"], OptionValue["Height"]],
+    "Custom", voxelizer[OptionValue["Mesh"], OptionValue["Resolution"]]
   ];
+      
+ DistributeDefinitions[newState3D, InfillPercentage, Connectivity, CenterArray, rule, bitmask, infill, connectivity];
 
-  Flatten[Reap[Table[
-  Nest[With[{test = 
-       newState3D[#, bitmask, ReplacePart[rule, 1 -> currRule]]}, 
-     If[(infill[[1]] == -1 || 
-         Abs[InfillPercentage[test, bitmask] - infill[[1]]] < 
-          infill[[2]]) && (connectivity == -1 || 
-         Connectivity[test] > connectivity), Sow[test], test]] &, 
-   CenterArray[1, Dimensions[bitmask]], statesMax], {currRule, 0, rulesMax}]][[2]], 1]
-]
+
+Flatten[ParallelCombine[
+    Function[currRule, 
+    Reap[Nest[
+      With[
+        {test = newState3D[#, bitmask, ReplacePart[rule, 1 -> currRule[[1]]]]},
+        If[
+          (infill[[1]] == -1 || 
+           Abs[InfillPercentage[test, bitmask] - infill[[1]]] < infill[[2]]) && 
+          (connectivity == -1 || Connectivity[test] > connectivity),
+          Sow[test],
+          test
+        ]
+      ] &, 
+      CenterArray[1, Dimensions[bitmask]], 
+      statesMax
+    ]][[2]]], Range[0, rulesMax], Method->"FinestGrained"
+
+],1]]
 
 End[]
 
 EndPackage[]
-
