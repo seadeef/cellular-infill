@@ -14,18 +14,7 @@ cylinderBitmask::usage = "cylinderBitmask[radius, height] generates a cylinder b
 
 Begin["`Private`"]
 newState3D[currentState_, bitmask_, 
-   rule_] := 
-  Module[{}, newState = CellularAutomaton[rule, currentState]; 
-   newState[[1 ;; -1, 1]] = newState[[1 ;; -1, -2]];
-   newState[[1 ;; -1, -1]] = newState[[1 ;; -1, 2]];
-   newState[[1]] = newState[[-2]];
-   newState[[-1]] = newState[[2]];
-   newState[[1 ;; -1, 1 ;; -1, 1]] = 
-    newState[[1 ;; -1, 1 ;; -1, -2]];
-   newState[[1 ;; -1, 1 ;; -1, -1]] = 
-    newState[[1 ;; -1, 1 ;; -1, 2]];
-   BitAnd[newState, bitmask]
-   ];
+   rule_] := BitAnd[CellularAutomaton[rule, currentState], bitmask];
 
 voxelizer[model_, resolution_] := Module[
     {bounds, dx, dy, dz, xRange, yRange, zRange},
