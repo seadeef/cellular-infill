@@ -69,7 +69,7 @@ IsolatedParts[slice_] :=
         ]
     ]]
 
-ConnectedParts[slice_] := MapThread[If[#2== 1, 0, #1] &, {slice, IsolatedParts[slice]}, 3]
+ConnectedParts[slice_] := BitXor[slice, IsolatedParts[slice]];
 
 Connectivity[slice_] := 
     If[AllTrue[Flatten[slice], # === 0 &], 0,
