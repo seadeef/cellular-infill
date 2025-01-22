@@ -19,7 +19,7 @@ connectedParts::usage = "connectedParts[slice] gives the matrix with all isolate
 
 Begin["`Private`"]
 
-Options[optimize] = {"Infill"->-1, "connectivity"->-1, "Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {1, {2, 1}, {1, 1, 1}}, "Resolution"->0, "Mesh"->Octahedron[]};
+Options[optimize] = {"Infill"->-1, "Connectivity"->-1, "Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {1, {2, 1}, {1, 1, 1}}, "Resolution"->0, "Mesh"->Octahedron[]};
 
 infillPercentage[slice_, shape_] := 
     N[Divide[Count[Flatten[slice], 1], Count[Flatten[shape], 1]]]
@@ -94,7 +94,7 @@ connectivity[slice_] :=
 
 
 optimize[rulesMax_, statesMax_, OptionsPattern[]] := 
-  Module[{bitmask, rule=OptionValue["Rule"], infill=OptionValue["Infill"], connectivity=OptionValue["connectivity"]},
+  Module[{bitmask, rule=OptionValue["Rule"], infill=OptionValue["Infill"], connectivityTreshold=OptionValue["Connectivity"]},
 
   bitmask = Switch[OptionValue["Shape"],
     "Prism", prismBitmask[OptionValue["Bounds"]],
@@ -103,7 +103,7 @@ optimize[rulesMax_, statesMax_, OptionsPattern[]] :=
     "Custom", voxelizer[OptionValue["Mesh"], OptionValue["Resolution"]]
   ];
       
- DistributeDefinitions[newState3D, infillPercentage, connectivity, CenterArray, rule, bitmask, infill, connectivity];
+ DistributeDefinitions[newState3D, infillPercentage, connectivity, CenterArray, rule, bitmask, infill, connectivityTreshold];
 
 
 Flatten[ParallelCombine[
@@ -114,7 +114,7 @@ Flatten[ParallelCombine[
         If[
           (infill[[1]] == -1 || 
            Abs[infillPercentage[test, bitmask] - infill[[1]]] < infill[[2]]) && 
-          (connectivity == -1 || connectivity[test] > connectivity),
+          (connectivityTreshold == -1 || connectivity[test] > connectivityTreshold),
           Sow[test],
           test
         ]
