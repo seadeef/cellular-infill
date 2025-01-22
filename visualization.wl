@@ -14,7 +14,7 @@ Rule describes how the CA will evolve (see Wolfram docs) \
 
 Begin["`Private`"]
 
-Options[visualize3DMatrix] = {"Infill"->-1, "Connectivity"->-1, "Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {14, {2, 1}, {1, 1, 1}}, "Resolution"->0, "Mesh"->Octahedron[]};
+Options[visualize3DMatrix] = {"Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {14, {2, 1}, {1, 1, 1}}, "Resolution"->0, "Mesh"->Octahedron[]};
 
 visualize3DMatrix[n_, OptionsPattern[]] := 
  Module[{xMax, yMax, zMax, bitmask, slices, displaySlices},
