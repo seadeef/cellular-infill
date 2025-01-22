@@ -19,7 +19,7 @@ ConnectedParts::usage = "ConnectedParts[slice] gives the matrix with all isolate
 
 Begin["`Private`"]
 
-Options[Optimize] = {"Infill"->-1, "Connectivity"->-1, "Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {14, {2, 1}, {1, 1, 1}}, "Resolution"->0, "Mesh"->Octahedron[]};
+Options[Optimize] = {"Infill"->-1, "Connectivity"->-1, "Shape"->"Prism", "Bounds"->{0,0,0}, "Radius"->0, "Height"->0, "Rule"-> {1, {2, 1}, {1, 1, 1}}, "Resolution"->0, "Mesh"->Octahedron[]};
 
 InfillPercentage[slice_, shape_] := 
     N[Divide[Count[Flatten[slice], 1], Count[Flatten[shape], 1]]]
@@ -121,7 +121,7 @@ Flatten[ParallelCombine[
       ] &, 
       CenterArray[1, Dimensions[bitmask]], 
       statesMax
-    ]][[2]]], Range[0, rulesMax], Method->"FinestGrained"
+    ]][[2]]], Range[rule[[1]], rulesMax], Method->"FinestGrained"
 
 ],1]]
 
