@@ -29,7 +29,7 @@ visualize3DMatrix[n_, OptionsPattern[]] :=
   {xMax, yMax, zMax} = Dimensions[bitmask];
 
   slices = NestList[newState3D[#, bitmask, OptionValue["Rule"]] &, CenterArray[1, {xMax, yMax, zMax}], n];
-  displaySlices={slices,Map[IsolatedParts,slices]};
+  displaySlices={slices,Map[isolatedParts,slices]};
   
   Manipulate[
    Module[{slicedCubes},
@@ -49,8 +49,8 @@ visualize3DMatrix[n_, OptionsPattern[]] :=
         Boxed -> False, Axes -> True, AxesOrigin -> {0, 0, 0}, 
         AxesLabel -> {"x", "y", "z"}, 
         PlotRange -> {{0, xMax}, {0, yMax}, {0, zMax}}],
-    Row[{"Infill: ",Style[ToString[NumberForm[InfillPercentage[slices[[s]], bitmask]*100,{4,2},NumberPadding->{"","0"}]]<>"%",Bold]}],
-    Row[{"Connectivity: ",Style[ToString[NumberForm[Connectivity[slices[[s]]]*100,{4,2},NumberPadding->{"","0"}]]<>"%",Bold]}]
+    Row[{"Infill: ",Style[ToString[NumberForm[infillPercentage[slices[[s]], bitmask]*100,{4,2},NumberPadding->{"","0"}]]<>"%",Bold]}],
+    Row[{"connectivity: ",Style[ToString[NumberForm[connectivity[slices[[s]]]*100,{4,2},NumberPadding->{"","0"}]]<>"%",Bold]}]
     }]],
 
    {{xLayers, xMax, "x Layers"}, 1, xMax, 1, Appearance -> "Labeled"},
