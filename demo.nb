@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       161,          7]
-NotebookDataLength[    441242,       7452]
-NotebookOptionsPosition[    440437,       7430]
-NotebookOutlinePosition[    440834,       7446]
-CellTagsIndexPosition[    440791,       7443]
+NotebookDataLength[    440008,       7432]
+NotebookOptionsPosition[    439203,       7410]
+NotebookOutlinePosition[    439600,       7426]
+CellTagsIndexPosition[    439557,       7423]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -31,14 +31,14 @@ Cell[BoxData[{
  RowBox[{"Get", "[", "\"\<metrics`\>\"", "]"}], "\[IndentingNewLine]", 
  RowBox[{"Get", "[", "\"\<visualization`\>\"", "]"}]}], "Input",
  CellChangeTimes->{{3.943219765260765*^9, 3.943219850909635*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"39b34370-b2c5-4f4e-a287-21a96f280863"],
+ CellLabel->"In[17]:=",ExpressionUUID->"39b34370-b2c5-4f4e-a287-21a96f280863"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"ArrayPlot3D", "/@", 
-  RowBox[{"ConnectedParts", "/@", 
-   RowBox[{"Optimize", "[", 
+  RowBox[{"connectedParts", "/@", 
+   RowBox[{"optimize", "[", 
     RowBox[{"100", ",", " ", "30", ",", 
      RowBox[{"\"\<Shape\>\"", "->", "\"\<Sphere\>\""}], ",", 
      RowBox[{"\"\<Radius\>\"", "->", "30"}], ",", " ", 
@@ -51,7 +51,7 @@ Cell[BoxData[
    3.943220451140709*^9, 3.943220485353758*^9}, {3.943221066538769*^9, 
    3.943221066694778*^9}, {3.943232993916326*^9, 3.943233019746863*^9}, {
    3.943233066032083*^9, 3.94323308082978*^9}, {3.943233154884674*^9, 
-   3.943233155091447*^9}, {3.9432332407815776`*^9, 3.943233241371716*^9}, {
+   3.943233155091447*^9}, {3.9432332407815785`*^9, 3.943233241371716*^9}, {
    3.943233679232544*^9, 3.943233680444851*^9}, {3.943233926766569*^9, 
    3.943233965789846*^9}, {3.943234171440933*^9, 3.94323417411496*^9}, {
    3.943234466583328*^9, 3.943234487079438*^9}, {3.943234643702915*^9, 
@@ -83,10 +83,10 @@ Cell[BoxData[
    3.944260368330873*^9, 3.944260397101742*^9}, {3.944260832691277*^9, 
    3.944260870167011*^9}, {3.944260949970492*^9, 3.944260956890175*^9}, {
    3.9442611199811707`*^9, 3.944261146092141*^9}, {3.944261508666634*^9, 
-   3.944261522728915*^9}, {3.9442615602869477`*^9, 3.944261560484399*^9}, {
+   3.944261522728915*^9}, {3.944261560286948*^9, 3.944261560484399*^9}, {
    3.944262210814952*^9, 3.944262216380027*^9}, {3.944265011996717*^9, 
-   3.944265017656168*^9}},
- CellLabel->"In[8]:=",ExpressionUUID->"6886fa27-0c02-47d4-93e3-7c24c19ee889"],
+   3.944265017656168*^9}, {3.9465124853507557`*^9, 3.946512487309816*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"6886fa27-0c02-47d4-93e3-7c24c19ee889"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -7243,15 +7243,9 @@ hs9kCP8/CMZwzg==
          TagBox["60", HoldForm], TraditionalForm]}, {-8.5, 
         FormBox[
          TagBox["70", HoldForm], TraditionalForm]}}}]}], "}"}]], "Output",
- CellChangeTimes->{
-  3.9442599611010227`*^9, {3.944260077538078*^9, 3.9442600908898163`*^9}, {
-   3.944260320242955*^9, 3.944260343253093*^9}, {3.944260375641905*^9, 
-   3.944260402131596*^9}, 3.944260472240773*^9, 3.944260539959754*^9, 
-   3.944260750163981*^9, {3.944260813382072*^9, 3.944260837803784*^9}, 
-   3.944260886927243*^9, 3.944260974601301*^9, 3.944261523787696*^9, 
-   3.944261556311577*^9, 3.94426161022892*^9, 3.944262293939357*^9, 
-   3.944265125307291*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"3fa8ff49-cf59-4afa-9c0f-bea3ce6339f5"]
+ CellChangeTimes->{{3.94651267948769*^9, 3.946512690691983*^9}, 
+   3.946513013548256*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"bd16f531-50b2-41e5-9be3-69f1ee4a853b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -7263,30 +7257,12 @@ Cell[BoxData[
    RowBox[{"\"\<Mesh\>\"", "->", 
     Graphics3DBox[
      TagBox[
-      DynamicModuleBox[{Typeset`mesh = HoldComplete[
-        BoundaryMeshRegion[{{0., 0.7071067811865475, 0.}, {0.7071067811865475,
-          0., 0.}, {0., -0.7071067811865475, 0.}, {-0.7071067811865475, 0., 
-         0.}, {0., 0., 0.7071067811865475}, {0., 0., -0.7071067811865475}}, {
-          
-          Polygon[{{5, 2, 1}, {5, 3, 2}, {5, 4, 3}, {4, 5, 1}, {2, 6, 1}, {2, 
-           3, 6}, {4, 6, 3}, {1, 6, 4}}]}, 
-         Method -> {
-          "EliminateUnusedCoordinates" -> True, "DeleteDuplicateCoordinates" -> 
-           Automatic, "DeleteDuplicateCells" -> Automatic, "VertexAlias" -> 
-           Identity, "CheckOrientation" -> Automatic, "CoplanarityTolerance" -> 
-           Automatic, "CheckIntersections" -> Automatic, 
-           "BoundaryNesting" -> {{0, 0}}, "SeparateBoundaries" -> False, 
-           "TJunction" -> Automatic, "PropagateMarkers" -> True, "ZeroTest" -> 
-           Automatic, "Hash" -> 2539751936309933691}]]}, 
+      DynamicModuleBox[{Typeset`mesh = {MeshRegion, {}}}, 
        TagBox[
-        GraphicsComplex3DBox[{{0., 0.7071067811865475, 0.}, {
-         0.7071067811865475, 0., 0.}, {0., -0.7071067811865475, 
-         0.}, {-0.7071067811865475, 0., 0.}, {0., 0., 0.7071067811865475}, {
-         0., 0., -0.7071067811865475}}, 
+        GraphicsComplex3DBox[{{-1., -1., 0.}, {1., -1., 0.}, {1., 1., 
+         0.}, {-1., 1., 0.}, {0., 0., 1.}}, 
          {Hue[0.6, 0.3, 0.85], EdgeForm[Hue[0.6, 0.3, 0.75]], 
-          
-          TagBox[Polygon3DBox[{{5, 2, 1}, {5, 3, 2}, {5, 4, 3}, {4, 5, 1}, {2,
-             6, 1}, {2, 3, 6}, {4, 6, 3}, {1, 6, 4}}],
+          TagBox[TetrahedronBox[{{3, 1, 2, 5}, {1, 5, 3, 4}}],
            Annotation[#, "Geometry"]& ]}],
         MouseAppearanceTag["LinkHand"]],
        AllowKernelInitialization->False],
@@ -7297,7 +7273,7 @@ Cell[BoxData[
      Boxed->False,
      DefaultBaseStyle->{
       "MeshGraphics3D", FrontEnd`GraphicsHighlightColor -> Hue[0.1, 1, 0.7]},
-     ImageSize->{90., 83.2597405083121},
+     ImageSize->{95.59662043169106, 45.},
      Lighting->{{"Ambient", 
         GrayLevel[0.45]}, {"Directional", 
         GrayLevel[0.3], 
@@ -7307,47 +7283,50 @@ Cell[BoxData[
         GrayLevel[0.3], 
         ImageScaled[{0, 2, 2}]}},
      Method->{"ShrinkWrap" -> True},
-     ViewPoint->{-0.46470209187048217`, -3.340037064831587, 0.279650444952978},
-     ViewVertical->{-0.31065943982401445`, -0.4872405525070857, 
-      0.8161417502130494}]}], ",", 
-   RowBox[{"\"\<Resolution\>\"", "->", "30"}]}], "]"}]], "Input",
+     ViewPoint->{1.7336918290018828`, -2.5241564732589232`, 
+      1.4397731559371352`},
+     ViewVertical->{0.07332397121651135, -0.046171803461354265`, 
+      0.9962388066172521}]}], ",", 
+   RowBox[{"\"\<Resolution\>\"", "->", "20"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.9432229195533247`*^9, 3.943222957203266*^9}, {
    3.943223066989301*^9, 3.943223073892004*^9}, {3.94322311715252*^9, 
    3.943223180219673*^9}, {3.9442644820847073`*^9, 3.944264491686022*^9}, {
    3.94426452818194*^9, 3.944264542071051*^9}, {3.944264606343162*^9, 
    3.944264633021624*^9}, {3.944264686913501*^9, 3.944264731154396*^9}, {
    3.944264809207328*^9, 3.944264809272973*^9}, {3.944264844108137*^9, 
-   3.944264846221161*^9}, 3.944264894745646*^9},
- CellLabel->"In[9]:=",ExpressionUUID->"4d6b249e-9eec-4a1e-802e-3eb34e5aa595"],
+   3.944264846221161*^9}, 3.944264894745646*^9, 3.946513142116169*^9, {
+   3.9465131809601517`*^9, 3.946513181073758*^9}, 3.9465132360030746`*^9, 
+   3.946513268281447*^9},
+ CellLabel->"In[31]:=",ExpressionUUID->"4d6b249e-9eec-4a1e-802e-3eb34e5aa595"],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
    DynamicModuleBox[{visualization`Private`displayMode$$ = 1, 
-    visualization`Private`s$$ = 16, visualization`Private`xLayers$$ = 30, 
-    visualization`Private`yLayers$$ = 30, visualization`Private`zLayers$$ = 
-    30, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    visualization`Private`s$$ = 18, visualization`Private`xLayers$$ = 40, 
+    visualization`Private`yLayers$$ = 40, visualization`Private`zLayers$$ = 
+    20, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
-       Hold[visualization`Private`xLayers$$], 30, "x Layers"}, 1, 30, 1, 
+       Hold[visualization`Private`xLayers$$], 40, "x Layers"}, 1, 40, 1, 
       ControlType -> Manipulator}, {{
-       Hold[visualization`Private`yLayers$$], 30, "y Layers"}, 1, 30, 1, 
+       Hold[visualization`Private`yLayers$$], 40, "y Layers"}, 1, 40, 1, 
       ControlType -> Manipulator}, {{
-       Hold[visualization`Private`zLayers$$], 30, "z Layers"}, 1, 30, 1, 
+       Hold[visualization`Private`zLayers$$], 20, "z Layers"}, 1, 20, 1, 
       ControlType -> Manipulator}, {{
        Hold[visualization`Private`s$$], 1, "Slice"}, 1, 50, 1, ControlType -> 
       Manipulator}, {{
        Hold[visualization`Private`displayMode$$], 1, "Display Mode"}, {
       1 -> "Regular", 2 -> "Isolated Parts"}, ControlType -> SetterBar}}, 
-    Typeset`size$$ = {180., {110.134033203125, 115.865966796875}}, 
+    Typeset`size$$ = {180., {102.634033203125, 108.365966796875}}, 
     Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = False}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, 
       "Variables" :> {
        visualization`Private`displayMode$$ = 1, visualization`Private`s$$ = 1,
-         visualization`Private`xLayers$$ = 30, 
-        visualization`Private`yLayers$$ = 30, visualization`Private`zLayers$$ = 
-        30}, "ControllerVariables" :> {}, 
+         visualization`Private`xLayers$$ = 40, 
+        visualization`Private`yLayers$$ = 40, visualization`Private`zLayers$$ = 
+        20}, "ControllerVariables" :> {}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -7360,7 +7339,7 @@ Cell[BoxData[
              And[Part[
                 Part[
                  Part[
-                 visualization`Private`displaySlices$34382, 
+                 visualization`Private`displaySlices$42142, 
                   visualization`Private`displayMode$$], 
                  visualization`Private`s$$], visualization`Private`i, 
                 visualization`Private`j, visualization`Private`k] == 1, 
@@ -7370,50 +7349,50 @@ Cell[BoxData[
              
              Cuboid[{visualization`Private`i - 1, visualization`Private`j - 1,
                 visualization`Private`k - 1}], Nothing], {
-            visualization`Private`i, 1, visualization`Private`xMax$34382}, {
-            visualization`Private`j, 1, visualization`Private`yMax$34382}, {
-            visualization`Private`k, 1, visualization`Private`zMax$34382}]]; 
+            visualization`Private`i, 1, visualization`Private`xMax$42142}, {
+            visualization`Private`j, 1, visualization`Private`yMax$42142}, {
+            visualization`Private`k, 1, visualization`Private`zMax$42142}]]; 
         Column[{
            Graphics3D[{
              Opacity[0.6], Blue, visualization`Private`slicedCubes$}, Boxed -> 
             False, Axes -> True, AxesOrigin -> {0, 0, 0}, 
             AxesLabel -> {"x", "y", "z"}, 
-            PlotRange -> {{0, visualization`Private`xMax$34382}, {
-              0, visualization`Private`yMax$34382}, {
-              0, visualization`Private`zMax$34382}}], 
+            PlotRange -> {{0, visualization`Private`xMax$42142}, {
+              0, visualization`Private`yMax$42142}, {
+              0, visualization`Private`zMax$42142}}], 
            Row[{"Infill: ", 
              Style[ToString[
-                NumberForm[metrics`InfillPercentage[
+                NumberForm[metrics`infillPercentage[
                    Part[
-                   visualization`Private`slices$34382, 
+                   visualization`Private`slices$42142, 
                     visualization`Private`s$$], 
-                   visualization`Private`bitmask$34382] 100, {4, 2}, 
+                   visualization`Private`bitmask$42142] 100, {4, 2}, 
                  NumberPadding -> {"", "0"}]] <> "%", Bold]}], 
-           Row[{"Connectivity: ", 
+           Row[{"connectivity: ", 
              Style[ToString[
-                NumberForm[metrics`Connectivity[
+                NumberForm[metrics`connectivity[
                    Part[
-                   visualization`Private`slices$34382, 
+                   visualization`Private`slices$42142, 
                     visualization`Private`s$$]] 100, {4, 2}, 
                  NumberPadding -> {"", "0"}]] <> "%", Bold]}]}]], 
-      "Specifications" :> {{{visualization`Private`xLayers$$, 30, "x Layers"},
-          1, 30, 1, Appearance -> "Labeled"}, {{
-         visualization`Private`yLayers$$, 30, "y Layers"}, 1, 30, 1, 
+      "Specifications" :> {{{visualization`Private`xLayers$$, 40, "x Layers"},
+          1, 40, 1, Appearance -> "Labeled"}, {{
+         visualization`Private`yLayers$$, 40, "y Layers"}, 1, 40, 1, 
          Appearance -> "Labeled"}, {{
-         visualization`Private`zLayers$$, 30, "z Layers"}, 1, 30, 1, 
+         visualization`Private`zLayers$$, 20, "z Layers"}, 1, 20, 1, 
          Appearance -> "Labeled"}, {{visualization`Private`s$$, 1, "Slice"}, 
          1, 50, 1, Appearance -> "Labeled"}, {{
          visualization`Private`displayMode$$, 1, "Display Mode"}, {
          1 -> "Regular", 2 -> "Isolated Parts"}}}, 
       "Options" :> {ControlPlacement -> Top}, "DefaultOptions" :> {}],
-     ImageSizeCache->{338., {211., 216.}},
+     ImageSizeCache->{338., {203., 209.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
     Initialization:>({
-      visualization`Private`xLayers$$ = visualization`Private`xMax$34382; 
-       visualization`Private`yLayers$$ = visualization`Private`yMax$34382; 
-       visualization`Private`zLayers$$ = visualization`Private`zMax$34382}; 
+      visualization`Private`xLayers$$ = visualization`Private`xMax$42142; 
+       visualization`Private`yLayers$$ = visualization`Private`yMax$42142; 
+       visualization`Private`zLayers$$ = visualization`Private`zMax$42142}; 
      Typeset`initDone$$ = True),
     SynchronousInitialization->True,
     UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
@@ -7423,9 +7402,10 @@ Cell[BoxData[
    StripOnInput->False],
   Manipulate`InterpretManipulate[1]]], "Output",
  CellChangeTimes->{{3.944264651645143*^9, 3.944264657948216*^9}, {
-   3.9442647119949703`*^9, 3.944264731971122*^9}, 3.9442648104093237`*^9, 
-   3.9442648493398333`*^9, 3.944264903208622*^9, 3.9442651351079073`*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"197560bd-e1d5-407d-ac0f-4d73beea0075"]
+   3.944264711994971*^9, 3.944264731971122*^9}, 3.944264810409324*^9, 
+   3.9442648493398337`*^9, 3.944264903208622*^9, 3.9442651351079073`*^9, 
+   3.946513054313129*^9, 3.946513161759944*^9, 3.9465132784571743`*^9},
+ CellLabel->"Out[31]=",ExpressionUUID->"1070bee8-4fcc-4369-9399-28b9da61e649"]
 }, Open  ]]
 },
 WindowSize->{Full, Full},
@@ -7445,14 +7425,14 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[561, 20, 760, 13, 157, "Input",ExpressionUUID->"39b34370-b2c5-4f4e-a287-21a96f280863"],
+Cell[561, 20, 761, 13, 157, "Input",ExpressionUUID->"39b34370-b2c5-4f4e-a287-21a96f280863"],
 Cell[CellGroupData[{
-Cell[1346, 37, 3400, 51, 30, "Input",ExpressionUUID->"6886fa27-0c02-47d4-93e3-7c24c19ee889"],
-Cell[4749, 90, 426881, 7163, 199, "Output",ExpressionUUID->"3fa8ff49-cf59-4afa-9c0f-bea3ce6339f5"]
+Cell[1347, 37, 3447, 51, 30, "Input",ExpressionUUID->"6886fa27-0c02-47d4-93e3-7c24c19ee889"],
+Cell[4797, 90, 426497, 7157, 199, "Output",ExpressionUUID->"bd16f531-50b2-41e5-9be3-69f1ee4a853b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[431667, 7258, 3133, 62, 98, "Input",ExpressionUUID->"4d6b249e-9eec-4a1e-802e-3eb34e5aa595"],
-Cell[434803, 7322, 5618, 105, 446, "Output",ExpressionUUID->"197560bd-e1d5-407d-ac0f-4d73beea0075"]
+Cell[431331, 7252, 2166, 47, 60, "Input",ExpressionUUID->"4d6b249e-9eec-4a1e-802e-3eb34e5aa595"],
+Cell[433500, 7301, 5687, 106, 454, "Output",ExpressionUUID->"1070bee8-4fcc-4369-9399-28b9da61e649"]
 }, Open  ]]
 }
 ]
